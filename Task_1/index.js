@@ -1,36 +1,41 @@
 // Multi-Operation Calculator using .env and Chalk in Node.js
 
 const chalk = require("chalk");
+const { stdin, stdout } = require("process");
 require("dotenv").config();
+const readline = require("readline");
 
-// require .env num1 and num2
-
+// First require .env number
 const num1 = Number(process.env.NUM1);
 const num2 = Number(process.env.NUM2);
 
-function createCalculator(calculation, a, b) {
-    let finaResult = [];
-    switch(calculation) {
+// Read line info
+const r1 = readline.createInterface({
+    input: stdin,
+    output: stdout
+});
+
+// Take the user input
+
+r1.question("Enter Your Operation Which You Want (add, sub, mul, divide) :", function(calculation) {
+    let finalResult = [];
+    switch (calculation) {
         case "add":
-            finaResult = a + b;
-            console.log(chalk.red(`${num1} + ${num2} = ${finaResult}`));
+            finalResult = num1 + num2;
+            console.log(chalk.yellow(`${num1} + ${num2} = ${finalResult}`));
             break;
-            case "mul":
-                finaResult = a * b;
-                console.log(chalk.yellow(`${num1} * ${num2} = ${finaResult}`));
+            case "sub":
+                finalResult = num1 - num2;
+                console.log(chalk.blue(`${num1} - ${num2} = ${finalResult}`));
                 break;
-                case "sub":
-                    finaResult = a - b;
-                    console.log(chalk.blue(`${num1} - ${num2} = ${finaResult}`));
+                case "mul":
+                    finalResult = num1 * num2;
+                    console.log(chalk.red(`${num1} * ${num2} = ${finalResult}`));
                     break;
                     case "divide":
-                        finaResult = a / b;
-                        console.log(chalk.bgYellow(`${num1} / ${num2} = ${finaResult}`));
-  
-            
+                        finalResult = num1 / num2;
+                        console.log(chalk.bgYellow(`${num1} / ${num2} = ${finalResult}`));
+                        break;           
     }
-}
-createCalculator("add", num1, num2);
-createCalculator("mul", num1, num2);
-createCalculator("sub", num1, num2);
-createCalculator("divide", num1, num2);
+    r1.close();
+});
