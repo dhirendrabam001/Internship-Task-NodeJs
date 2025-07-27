@@ -1,4 +1,4 @@
-// Multi-Operation Calculator using .env and Chalk in Node.js
+// Multi-Operation Calculator using .env and Chalk and user input readline in Node.js
 
 const chalk = require("chalk");
 const { stdin, stdout } = require("process");
