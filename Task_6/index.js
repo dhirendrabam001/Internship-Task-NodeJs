@@ -1,7 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
-const { json } = require("stream/consumers");
+
 
 // File name and path
 const fileName = "dhirendr.txt";
@@ -34,7 +34,7 @@ const server = http.createServer((req, res) => {
             }
 
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({message: "Data Get successfully",bodyData}));
+            res.end(JSON.stringify({ message: "Data Get successfully", bodyData }));
         });
     }
 
@@ -53,27 +53,46 @@ const server = http.createServer((req, res) => {
             }
 
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({message: "Data has been posted successfully",data: userData}));
+            res.end(JSON.stringify({ message: "Data has been posted successfully", userData }));
         });
     }
 
-    // PUT Operation placeholder
+    // PUT Operation
     else if (req.method === "PUT" && req.url === "/userdata") {
-        let dataBody = "";
+        let startingData = "";
         req.on("data", (chunk) => {
-            dataBody.push(chunk);
-            console.log(dataBody);
+            // startingData.push(chunk);
+            startingData += chunk.toString();
+            console.log(startingData);
             
         });
+
         req.on("end", () => {
             try {
-                const updateData = JSON.parse(dataBody);
-                console.log(updateData);
-                
-            } catch {
+                const finalData = JSON.parse(startingData);
+                console.log("Data Show", finalData);
+                const updateData = {
+                    id: Date.now(),
+                    name: finalData.name || "Dhiraj",
+                    role: finalData.role || "Backend Developer"
+                }
+              JSON.stringify({message: "can data is found?", data:  updateData});
 
+                fs.writeFile(pathName, JSON.stringify(updateData), "utf8", (error) => {
+                    if (error) {
+                        res.writeHead(400, { "Content-Type": "application/json" });
+                        return res.end(JSON.stringify({message: "Failed to write data", error: error}));
+                    } else {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        return res.end(JSON.stringify({message: "Data has been completed updated", data: updateData}));
+                    }
+                });
+
+            } catch (error) {
+                res.end(JSON.stringify({ message: "Invalid Data find", error}));
             }
-        })
+        });
+
     }
 
     // unknow routes 
@@ -85,5 +104,5 @@ const server = http.createServer((req, res) => {
 
 const PORT = 2200;
 server.listen(PORT, () => {
-    console.log(`✅ Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
