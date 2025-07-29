@@ -95,6 +95,19 @@ const server = http.createServer((req, res) => {
 
     }
 
+    // DELETE OPERATION
+    else if(req.method === "DELETE" && req.url === "/userdata") {
+        fs.unlink(pathName, (error) => {
+            if(error) {
+                res.writeHead(500, {"Content-Type" : "application/json"});
+                return res.end(JSON.stringify({message: "Some issue for deleting file", error}));
+            } else {
+                res.writeHead(200, {"Content-Type" : "application/json"});
+                res.end(JSON.stringify({message: "Data Has Been Sucussfully Deleted"}));
+            };
+        });
+    }
+
     // unknow routes 
     else {
         res.writeHead(404, { "Content-Type": "application/json" });
