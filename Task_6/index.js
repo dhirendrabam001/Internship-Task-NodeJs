@@ -64,32 +64,32 @@ const server = http.createServer((req, res) => {
             // startingData.push(chunk);
             startingData += chunk.toString();
             console.log(startingData);
-            
+
         });
 
         req.on("end", () => {
             try {
                 const finalData = JSON.parse(startingData);
-                console.log("Data Show", finalData);
+                // console.log("Data Show", finalData);
                 const updateData = {
                     id: Date.now(),
                     name: finalData.name || "Dhiraj",
                     role: finalData.role || "Backend Developer"
                 }
-              JSON.stringify({message: "can data is found?", data:  updateData});
+                JSON.stringify({ message: "can data is found?", data: updateData });
 
                 fs.writeFile(pathName, JSON.stringify(updateData), "utf8", (error) => {
                     if (error) {
                         res.writeHead(400, { "Content-Type": "application/json" });
-                        return res.end(JSON.stringify({message: "Failed to write data", error: error}));
+                        return res.end(JSON.stringify({ message: "Failed to write data", error: error }));
                     } else {
                         res.writeHead(200, { "Content-Type": "application/json" });
-                        return res.end(JSON.stringify({message: "Data has been completed updated", data: updateData}));
+                        return res.end(JSON.stringify({ message: "Data has been completed updated", data: updateData }));
                     }
                 });
 
             } catch (error) {
-                res.end(JSON.stringify({ message: "Invalid Data find", error}));
+                res.end(JSON.stringify({ message: "Invalid Data find", error }));
             }
         });
 
@@ -97,16 +97,92 @@ const server = http.createServer((req, res) => {
 
     // DELETE OPERATION
     else if(req.method === "DELETE" && req.url === "/userdata") {
-        fs.unlink(pathName, (error) => {
-            if(error) {
-                res.writeHead(500, {"Content-Type" : "application/json"});
-                return res.end(JSON.stringify({message: "Some issue for deleting file", error}));
-            } else {
-                res.writeHead(200, {"Content-Type" : "application/json"});
-                res.end(JSON.stringify({message: "Data Has Been Sucussfully Deleted"}));
-            };
+        let bodyData = "";
+        req.on("data", (chunk) => {
+            bodyData += chunk.toString();
+            // bodyData.push(chunk)
+            console.log("BodyData is received", bodyData);
+            debugger;
+            
+            
         });
+
+        // end data
+        req.on("end", () => {
+            let userId = JSON.parse(bodyData);
+            console.log("User Data is receiver", userId);
+            debugger;
+            let deleteId = userId.id;
+            if(!deleteId) {
+                res.writeHead(500, {"Content-Type" : "application/json"});
+                return res.end(JSON.stringify({message: "Id is not found"}));
+            };
+            console.log("Find deleteid", deleteId);
+            debugger;
+
+            // readfile
+            fs.readFile(pathName, "utf8", (error, data) => {
+                if(error) {
+                    res.writeHead(500, {"Content-Type" : "application/json"});
+                    return res.end(JSON.stringify({message: "Read File not found", error}));
+                }
+                console.log("User id not found", data);
+                debugger;
+
+                let users;
+                try {
+                    users = JSON.parse(data)
+                    if(!Array.isArray(users)) users = [];
+                } catch(error) {
+                    users = [];
+
+                }
+                console.log("Before initalization id found", users);
+                debugger;
+
+                let filterId = users.filter((user) => Number(user.id) !== Number(deleteId));
+                
+
+                if (filterId.length === users.length) {
+                    res.writeHead(404, { "Content-Type": "application/json" });
+                    return res.end(JSON.stringify({ message: `User with id ${deleteId} not found` }));
+                }
+
+                console.log("Users after deletion:", filterId);
+                debugger;
+
+                fs.writeFile(pathName, JSON.stringify(filterId, null, 2), (error) => {
+                    if(error) {
+                        res.writeHead(500, {"Content-Type" : "application/json"});
+                        return res.end(JSON.stringify({message: "Invalid message found", error}));
+                    } else {
+                        res.writeHead(200, {"Content-Type" : "application/json"});
+                        return res.end(JSON.stringify({message: "Data has been deleted sucussfully"}));
+                    }
+                 
+                    
+                });
+                console.log("can data deleted",);
+                debugger;
+                
+                
+                
+                
+            })
+            
+
+            
+
+        });
+
+
+
+
+
     }
+
+
+
 
     // unknow routes 
     else {
@@ -117,5 +193,6 @@ const server = http.createServer((req, res) => {
 
 const PORT = 2200;
 server.listen(PORT, () => {
+
     console.log(`Server is running at http://localhost:${PORT}`);
 });
