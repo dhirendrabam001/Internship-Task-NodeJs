@@ -103,8 +103,7 @@ const server = http.createServer((req, res) => {
             // bodyData.push(chunk)
             console.log("BodyData is received", bodyData);
             debugger;
-            
-            
+    
         });
 
         // end data
@@ -112,7 +111,7 @@ const server = http.createServer((req, res) => {
             let userId = JSON.parse(bodyData);
             console.log("User Data is receiver", userId);
             debugger;
-            let deleteId = userId.id;
+            let deleteId = Number(userId.id);
             if(!deleteId) {
                 res.writeHead(500, {"Content-Type" : "application/json"});
                 return res.end(JSON.stringify({message: "Id is not found"}));
@@ -140,13 +139,14 @@ const server = http.createServer((req, res) => {
                 console.log("Before initalization id found", users);
                 debugger;
 
-                let filterId = users.filter((user) => Number(user.id) !== Number(deleteId));
+                let filterId = users.filter((user) => {
+                    console.log("Test value:", user.id, "to:", deleteId);
+                    return Number(user.id !== deleteId)
+                    
+                });
                 
 
-                if (filterId.length === users.length) {
-                    res.writeHead(404, { "Content-Type": "application/json" });
-                    return res.end(JSON.stringify({ message: `User with id ${deleteId} not found` }));
-                }
+              
 
                 console.log("Users after deletion:", filterId);
                 debugger;
@@ -168,14 +168,12 @@ const server = http.createServer((req, res) => {
                 
                 
                 
-            })
+            });
             
 
             
 
         });
-
-
 
 
 

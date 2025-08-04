@@ -1,12 +1,12 @@
 const mysql2 = require("mysql2");
 
-const db = mysql2.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "@Dhirendra001",
-    database: "dbmysql"
+// const db = mysql2.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "@Dhirendra001",
+//     database: "dbmysql"
     
-});
+// });
 
 // CONNECTION DATABASE
 db.connect(function(error) {
@@ -16,7 +16,7 @@ db.connect(function(error) {
 
     // CREATE DATABASE
 
-    // db.query("CREATE DATABASE dbmysql", function(err, result) {
+    // db.query("CREATE DATABASE dbmy", function(err, result) {
     //     if(err) throw err;
     //     console.log("Database Create Sucussfully");
         
@@ -39,8 +39,8 @@ db.connect(function(error) {
 
     // INSERT OPERATION
 
-    // const inserData = `INSERT INTO users(name, address, email) VALUES(?, ?, ?)`;
-    // const values = ["Dhirendra", "Deerabassi", "dhirendrabam12345@gmail.com"];
+    // const inserData = `INSERT INTO user(name, address, email) VALUES(?, ?, ?)`;
+    // const values = ["dhiraj", "nepal", "dhirendrabam123@gmail.com"];
     // db.query(inserData, values, function(error, result) {
     //   if(error) throw error;
     //   console.log("Data Insert Sucussfully", result);
@@ -48,7 +48,7 @@ db.connect(function(error) {
 
     // READ OPERATION
 
-    const readData = `SELECT * FROM users`;
+    const readData = `SELECT * FROM user`;
    db.query(readData, function(error, result) {
     if(error) throw error;
     console.log("Data Read Sucussfully", result);
@@ -56,7 +56,7 @@ db.connect(function(error) {
 
   //  UPDATE OPERATION
 
-//   const updateData = `UPDATE users SET address = ? WHERE email = ?`;
+//   const updateData = `UPDATE user SET address = ? WHERE email = ?`;
 //   const values = ["Nepal", "dhirendrabam12345@gmail.com"];
 //   db.query(updateData, values, function (error, result) {
 //     if(error) throw error;
@@ -66,14 +66,14 @@ db.connect(function(error) {
 
 // DELETE oPERATION
 
-// const deleteData = `DELETE FROM users WHERE email = ?`;
-// const values = ["dhirendrabam12345@gmail.com"];
+const deleteData = `DELETE FROM user WHERE name = ?`;
+const values = ["dhirendra"];
 
-// db.query(deleteData, values, function(error, result) {
-//     if(error) throw error;
-//     console.log("Data Has Been Delete Sucussfully", result);
+db.query(deleteData, values, function(error, result) {
+    if(error) throw error;
+    console.log("Data Has Been Delete Sucussfully", result);
     
-// })
+})
       
 
 
