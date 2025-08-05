@@ -1,7 +1,10 @@
-const express = require("express")
+const express = require("express");
 const path = require("path");
 const app = express();
 const formRouter = require("./routes/formRouter");
+const homeRouter = require("./routes/homeRouter");
+const studentRouter = require("./routes/studentRouter");
+const studentRecord = require("./routes/studentRecord");
 const con = require("./dbConnection/db");
 
 app.use(express.urlencoded());
@@ -15,13 +18,14 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(formRouter);
+app.use(homeRouter);
+app.use(studentRouter);
+app.use(studentRecord);
 
 
 
 
-app.get("/", (req,res) => {
-    res.render("home")
-});
+
 
 
 

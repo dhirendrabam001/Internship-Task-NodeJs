@@ -13,6 +13,15 @@ formRouter.post("/submit-data", (req,res) => {
    });
 
 
+   // const deleteData = `DELETE FROM users WHERE title = ?`;
+   // con.query(deleteData, ["frontend"], (error, result) => {
+   //    if(error) throw error;
+   //    console.log("Data has been delete sucussfully", result);
+   //    res.send("Data has been delete sucussfully")
+      
+   // });
+
+
 });
 
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Student Record</title>
+</head>
+<body>
+    <section class="student-record py-4">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="mb-2 text-primary fw-bold fs-2">Please Fill The Student Information</h1>
+            </div>
+            <form action="/student-records" class="mt-5" method="POST">
+                <div class="mb-3">
+                    <label for="exampleInputName" class="form-label">Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Student Name" name="name" aria-describedby="nameHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" placeholder="Enter Student Email" name="email" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputCourse" class="form-label">Course</label>
+                    <input type="text" class="form-control" placeholder="Enter Student Course" name="course" aria-describedby="courseHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputnumber" class="form-label">Phone Number</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Number" name="number" aria-describedby="numberHelp" required>
+                </div>
+                <button type="submit" class="btn btn-outline-danger">Submit</button>
+            </form>
+        </div>
+    </section>
+
+
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

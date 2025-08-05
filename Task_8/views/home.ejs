@@ -9,8 +9,11 @@
 </head>
 
 <body>
-    <section class="form-info py-4">
+    <section class="form-info py-4 bg-secondary">
         <div class="container">
+            <div class="text-center py-3">
+                <h2 class="fw-bold fs-1 text-danger">Welcome to our store user data with MysQl</h2>
+            </div>
             <div class="form-section">
                 <form action="/submit-data" method="POST">
                     <div class="mb-3">
@@ -31,9 +34,9 @@
                     <div class="mb-3">
                         <label for="exampleInputTitle" class="form-label">Priority</label>
                         <select class="form-control" name="selectdata" aria-label="example">
-                            <option value="1">Low</option>
-                            <option value="2">Medium</option>
-                            <option value="3">High</option>
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option>High</option>
                         </select>
                     </div>
                     <div class="mb-3">
