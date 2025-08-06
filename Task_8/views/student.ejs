@@ -11,7 +11,7 @@
         <div class="container">
             <div class="text-start">
                 <h1 class="mb-2 text-danger fw-bold fs-1">Add The Student Information</h1>
-                 <a href="/add-student" class="btn btn-outline-primary">Add Student</a>
+                 <a href="/add-student" class="btn btn-outline-primary mt-4">Add Student</a>
             </div>
                 <table class="table table-bordered mt-5">
             <thead class="table-light">
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% studentInfo.forEach((student) => { %>
+                <% studentList.forEach((student) => { %>
                     <tr>
                         <td><%= student.id %></td>
                         <td><%= student.name %></td>
@@ -33,11 +33,11 @@
                         <td><%= student.course %></td>
                         <td><%= student.number %></td>
                         <td>
-                            <a href="/edit/<%= student.id %>" class="btn btn-warning btn-sm fw-bold text-white">edit</a>
-                            <a href="/delete/<%= student.id %>" class="btn btn-danger btn-sm fw-bold">delete</a>
+                            <a href="/edit/<%= student.id %>" class="btn btn-warning fw-bold">edit</a>
+                            <a href="/delete/<%= student.id %>" class="btn btn-danger fw-bold" onclick="return confirm('Are You Delete Particular Student Records?')">delete</a>
                         </td>
                     </tr>
-               <%}); %>
+              <% }); %>
             </tbody>
         </table>
         </div>
