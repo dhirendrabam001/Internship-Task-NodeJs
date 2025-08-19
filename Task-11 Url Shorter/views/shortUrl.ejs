@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Short Url</title>
+</head>
+
+<body>
+    <section class="url-short py-4">
+        <div class="container p-4 shadow">
+            <h1 class="fw-bold fs-2 text-center mb-3">WELCOME TO URL SHORTER WEBSITE</h1>
+            <form action="/submit-data" method="POST">
+                <div class="mb-3 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Enter Your Shorter Url:</label>
+                    <input type="text" class="form-control" id="input" name="loginurl" aria-describedby="emailHelp">
+                    <button type="submit" class="btn btn-outline-primary mt-3 w-25">Shorter</button>
+                </div>
+            </form>
+            <% if(shortUrl) { %>
+                <p class="text-center">Your Short Url : <a href="<%= shortUrl %>" target="_blank" />
+                    <%= shortUrl %>
+                </p> <% } %>
+            
+        </div>
+    </section>
+
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
