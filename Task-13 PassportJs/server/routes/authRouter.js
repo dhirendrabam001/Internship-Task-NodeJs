@@ -17,4 +17,11 @@ authRouter.get("/user",
     authController.getUser
 )
 
+// logout route
+authRouter.post("/logout", (req,res) => {
+    res.clearCookie("token", {httpOnly: false, sameSite: "lax"});
+    res.status(200).json({message: "user logout successfully"});
+})
 
+
+module.exports = authRouter;

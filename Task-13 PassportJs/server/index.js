@@ -4,6 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const passport = require("passport");
 
+const passportStrategy = require("./config/passport");
 const cookieParser = require("cookie-parser");
 const mongoose = require("./database/connection");
 const app = express();
